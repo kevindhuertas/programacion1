@@ -67,15 +67,11 @@ class BillChanger{
                 cout<<"Número de monedas de 10 ctv: "<<getNum10CentCoins(remainingAmount)<<endl;
                 cout<<"Número de monedas de 5 ctv: "<<getNum5CentCoins(remainingAmount)<<endl;
                 cout<<"Número de monedas de 1 ctv: "<<getNum1CentCoins(remainingAmount)<<endl;
-                
             }
             if(option == 3){
                 cout<<"Número de monedas de 5 ctv: "<<getNum5CentCoins(remainingAmount)<<endl;
                 cout<<"Número de monedas de 1 ctv: "<<getNum1CentCoins(remainingAmount)<<endl;
-                
             }
-            
-            
         }
     
     private:
@@ -87,17 +83,24 @@ class BillChanger{
 };
 
 void monedaMenu();
+int convertAmountToInt(double dollarInput);
+//FUNCION PRINCIPAL-------
 int main(){
     double dollarAmountFromUser;
-    int changeOption;
+    int dollarAmountFromUserInteger;
+    float changeOption;
     
+    cout<<"Hecho por kevin HuERTAS 00213278"<<endl;
     cout<<"Bienvenido al cambiador de dinero en monedas de $0.25, $0.10, $0.05, $0.01";
     monedaMenu();
     
     BillChanger billChanger;
     // Get dollar amount from the user
-    cout<<endl<<endl<<"Introduca la cantidad de dinero que desea comvertir: "<<endl;
+    cout<<endl<<endl<<"Introduca la cantidad de dinero que desea convertir: "<<endl;
     cin>> dollarAmountFromUser;
+    //Validation and Convertion User Amounr to integer
+    dollarAmountFromUserInteger = convertAmountToInt(dollarAmountFromUser);
+    
     // Get change option from the user
     cout<<"Con que opción desea convertir:"<<endl;
     cout<<"\t1. Moneda más alta de 0.25 ctv"<<endl;
@@ -105,31 +108,43 @@ int main(){
     cout<<"\t3. Moneda más alta de 0.05 ctv"<<endl;
     cout<<"Opcion número: ";
     cin >> changeOption;
-    // Calculate the number of each type of coin.
+    cout<<endl<<endl;
     
-    billChanger. calculateChange(dollarAmountFromUser, changeOption);
+    
+    // Calculate the number of each type of coin.
+    billChanger.calculateChange(dollarAmountFromUserInteger, changeOption);
+    cout<<"\nGracias por usar el servicio"<<endl<<endl;
     
     return 0;
 }
 
 
-/* FUncion para convertir lo ingresado*/
 
-int main2() {
+
+int convertAmountToInt(double dollarInput){
     const double EPSILON = 1.0E-10; //    1/10000000000
-    double dollarInput;
     double dollDivision;
+    bool res;
     
-    cin >> dollarInput;
-    cout<< "dollarInput = " << dollarInput << endl;
+    //cout<< "dollarInput = " << dollarInput << endl;
     dollDivision = dollarInput /.01;
     
-    bool res = fabs(round(dollDivision) - dollDivision) < EPSILON;
-    cout << boolalpha << res << endl;
-    cout << fixed << setprecision(30) <<  "dollDivision = " << dollDivision << endl;
-    cout << "round(dollDivision) = " << round(dollDivision) << endl;
-    cout << "EPSILON = " << EPSILON << endl;
-    return 0;
+    //Validacion
+    while ((res = fabs(round(dollDivision) - dollDivision) < EPSILON) == false){
+        //cout <<"Esta cantidad es: "<<boolalpha << res << endl;    //Para saber imprimir si es false or true
+        //cout<<"La cantidad: "<<dollarInput<<" es invalida!\n";
+        cout<<"Ingrese una cantidad valida!";
+        cout<<endl<<endl<<"Introduca la cantidad de dinero que desea convertir: "<<endl;
+        cin>> dollarInput;
+        dollDivision = dollarInput /.01;
+    }
+    
+
+    //cout << fixed << setprecision(30) <<  "dollDivision = " << dollDivision << endl;
+    //cout << "round(dollDivision) = " << round(dollDivision) << endl;
+    //cout << "EPSILON = " << EPSILON << endl;
+    
+    return static_cast<int>(round(dollDivision));
 }
 
 
