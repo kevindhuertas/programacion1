@@ -113,7 +113,7 @@ int main(){
 }
 
 
-/* run this program using the console pauser or add your own getch, system("pause") or input loop */
+/* FUncion para convertir lo ingresado*/
 
 int main2() {
     const double EPSILON = 1.0E-10; //    1/10000000000
